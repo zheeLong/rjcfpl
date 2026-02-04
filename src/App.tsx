@@ -3,9 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { HeroSection } from '@/sections/HeroSection';
+import { ModulesSection } from '@/sections/ModulesSection';
 import { SeasonSelector } from '@/sections/SeasonSelector';
 import { EpisodeList } from '@/sections/EpisodeList';
 import { FeaturesSection } from '@/sections/FeaturesSection';
+import { ModuleDetail } from '@/sections/ModuleDetail';
 import { NoteDetail } from '@/components/NoteDetail';
 import type { ViewState } from '@/types';
 
@@ -71,6 +73,7 @@ function App() {
               transition={{ duration: 0.3 }}
             >
               <HeroSection onNavigate={handleNavigate} />
+              <ModulesSection onNavigate={handleNavigate} />
               <SeasonSelector onNavigate={handleNavigate} />
               <FeaturesSection />
             </motion.div>
@@ -101,6 +104,21 @@ function App() {
             >
               <NoteDetail
                 episodeId={currentView.episodeId}
+                onNavigate={handleNavigate}
+              />
+            </motion.div>
+          )}
+
+          {currentView.type === 'module' && (
+            <motion.div
+              key={`module-${currentView.moduleId}`}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ModuleDetail
+                moduleId={currentView.moduleId}
                 onNavigate={handleNavigate}
               />
             </motion.div>

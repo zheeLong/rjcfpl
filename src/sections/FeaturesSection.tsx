@@ -5,31 +5,31 @@ import { AnimatedSection, StaggerContainer, StaggerItem } from '@/components/Ani
 const features = [
   {
     icon: BookOpen,
-    title: '系统化学习',
-    description: '六大模块完整覆盖：亮点概述、核心台词、重点词汇、句型拆解、互动问答、亲子游戏',
+    title: '系统化路径',
+    description: '从兴趣启蒙到分级阅读，形成清晰的学习路径与阶段目标。',
     color: '#FF9AA2',
     bgColor: '#FFE4E8',
   },
   {
     icon: Users,
-    title: '亲子互动',
-    description: '精心设计的互动游戏，让家长和孩子一起参与，在游戏中自然习得英语',
+    title: '亲子共学',
+    description: '配套亲子互动任务，让孩子在真实交流中自然习得英语。',
     color: '#B5EAD7',
     bgColor: '#EEFCF7',
   },
   {
     icon: MessageCircle,
-    title: '生活化应用',
-    description: '场景化的英语表达，贴近日常生活，孩子学了就能用，培养英语思维',
+    title: '场景化表达',
+    description: '把动画、绘本与日常生活结合，句子学了就能用。',
     color: '#C7CEEA',
     bgColor: '#F0F2FC',
   },
 ];
 
 const highlights = [
-  { icon: Sparkles, text: '200+ 精选集数' },
-  { icon: Heart, text: '适龄3-7岁' },
-  { icon: Gamepad2, text: '趣味互动' },
+  { icon: Sparkles, text: '7 大模块体系' },
+  { icon: Heart, text: '适龄3-8岁' },
+  { icon: Gamepad2, text: '陪伴式学习' },
 ];
 
 export function FeaturesSection() {
@@ -40,13 +40,13 @@ export function FeaturesSection() {
         <AnimatedSection className="text-center mb-12 md:mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-pink-100 rounded-full mb-4">
             <Sparkles className="w-4 h-4 text-pink-500" />
-            <span className="text-sm font-semibold text-pink-600">为什么选择我们</span>
+            <span className="text-sm font-semibold text-pink-600">为什么选择苒妈英语启蒙</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            让英语启蒙变得 <span className="text-pink-500">轻松有趣</span>
+            让英语启蒙变得 <span className="text-pink-500">更系统更落地</span>
           </h2>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            专为家长和孩子设计的英语学习资源，让每一次观看都成为学习的机会
+            面向家庭场景的学习资源，让孩子在兴趣与陪伴中稳步提升英语能力
           </p>
         </AnimatedSection>
 

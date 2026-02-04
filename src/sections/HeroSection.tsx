@@ -1,23 +1,25 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, Star } from 'lucide-react';
+import { Sparkles, Star } from 'lucide-react';
 import type { ViewState } from '@/types';
 
 interface HeroSectionProps {
   onNavigate: (view: ViewState) => void;
 }
 
-export function HeroSection({ onNavigate }: HeroSectionProps) {
+export function HeroSection({ onNavigate: _onNavigate }: HeroSectionProps) {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20">
-      {/* Background Image */}
+    <section className="relative min-h-[52vh] md:min-h-[58vh] flex items-center justify-center overflow-hidden pt-16 md:pt-18">
+      {/* Background Gradient */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="/images/hero-bg.png"
-          alt="Hero Background"
-          className="w-full h-full object-cover object-center"
-        />
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/60 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_#FFE7F1_0%,_#FFF6F9_42%,_#FFFFFF_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,_rgba(255,168,213,0.22)_0%,_rgba(255,255,255,0.9)_45%,_rgba(255,218,193,0.18)_100%)]" />
+      </div>
+
+      {/* Soft Shapes */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-pink-200/50 blur-3xl" />
+        <div className="absolute top-1/3 -left-20 w-64 h-64 rounded-full bg-rose-100/70 blur-3xl" />
+        <div className="absolute -bottom-24 right-1/4 w-80 h-80 rounded-full bg-orange-100/60 blur-3xl" />
       </div>
 
       {/* Floating Decorations */}
@@ -47,7 +49,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
 
       {/* Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl py-4 md:py-6">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -57,7 +59,7 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
           >
             <Sparkles className="w-4 h-4 text-pink-500" />
             <span className="text-sm font-semibold text-pink-600">
-              3-7岁英语启蒙首选
+              3-8岁英语启蒙首选
             </span>
           </motion.div>
 
@@ -68,9 +70,9 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
             transition={{ duration: 0.6, delay: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
             className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-800 leading-tight mb-4"
           >
-            小猪佩奇
+            苒妈英语
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-pink-600">
-              英语启蒙笔记
+              启蒙成长计划
             </span>
           </motion.h1>
 
@@ -81,76 +83,21 @@ export function HeroSection({ onNavigate }: HeroSectionProps) {
             transition={{ duration: 0.6, delay: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
             className="text-xl md:text-2xl text-gray-600 font-medium mb-4"
           >
-            和佩奇一起，快乐学英语
+            亲子陪伴式英语启蒙，从兴趣到能力稳步提升
           </motion.p>
 
           {/* Description */}
-          <motion.p
+          {/* <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
             className="text-base md:text-lg text-gray-500 mb-8 max-w-lg"
           >
-            专为3-7岁小朋友设计的英语启蒙学习资源，包含词汇、句型、互动游戏，让学习变得轻松有趣！
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
-            className="flex flex-wrap gap-4"
-          >
-            <motion.button
-              onClick={() => onNavigate({ type: 'season', seasonId: 1 })}
-              className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white font-bold rounded-2xl shadow-lg shadow-pink-200 hover:shadow-xl hover:shadow-pink-300 transition-all duration-300"
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              开始探索
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
-            
-            <motion.button
-              onClick={() => {
-                const element = document.getElementById('features');
-                element?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="px-8 py-4 bg-white text-pink-600 font-bold rounded-2xl shadow-lg shadow-pink-100 hover:shadow-xl hover:bg-pink-50 transition-all duration-300 border-2 border-pink-100"
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              了解更多
-            </motion.button>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex flex-wrap gap-8 mt-12"
-          >
-            <StatItem number="9" label="精彩季节" />
-            <StatItem number="200+" label="精选集数" />
-            <StatItem number="6" label="学习模块" />
-          </motion.div>
+            覆盖亲子英语、佩奇笔记、牛津树精读、RAZ精读、绘本推荐、
+            绘本拓展与经验分享，让学习内容更系统、更落地、更可持续。
+          </motion.p> */}
         </div>
       </div>
     </section>
-  );
-}
-
-interface StatItemProps {
-  number: string;
-  label: string;
-}
-
-function StatItem({ number, label }: StatItemProps) {
-  return (
-    <div className="text-center">
-      <div className="text-3xl md:text-4xl font-extrabold text-pink-500">{number}</div>
-      <div className="text-sm text-gray-500 font-medium">{label}</div>
-    </div>
   );
 }

@@ -16,13 +16,13 @@ export function SeasonSelector({ onNavigate }: SeasonSelectorProps) {
         <AnimatedSection className="text-center mb-12 md:mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-pink-100 rounded-full mb-4">
             <Sparkles className="w-4 h-4 text-pink-500" />
-            <span className="text-sm font-semibold text-pink-600">选择季节</span>
+            <span className="text-sm font-semibold text-pink-600">佩奇笔记入口</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            小猪佩奇共有 <span className="text-pink-500">9季</span> 精彩内容
+            从 <span className="text-pink-500">佩奇笔记</span> 开始系统学习
           </h2>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            每一集都包含完整的英语启蒙教学内容，点击季节开始探索吧！
+            每一集都包含台词、词汇、句型、问答与亲子游戏，点击季节开始探索吧！
           </p>
         </AnimatedSection>
 

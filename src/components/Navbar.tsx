@@ -12,6 +12,16 @@ export function Navbar({ onNavigate, currentView }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isHome = currentView.type === 'home';
+  const handleScrollToModules = () => {
+    if (!isHome) {
+      onNavigate({ type: 'home' });
+      setTimeout(() => {
+        document.getElementById('modules')?.scrollIntoView({ behavior: 'smooth' });
+      }, 350);
+      return;
+    }
+    document.getElementById('modules')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <motion.nav
@@ -38,9 +48,9 @@ export function Navbar({ onNavigate, currentView }: NavbarProps) {
             </div>
             <div className="hidden sm:block">
               <h1 className="text-lg md:text-xl font-bold text-pink-600 leading-tight">
-                Peppa Notes
+                苒妈英语启蒙
               </h1>
-              <p className="text-xs text-pink-400">小猪佩奇英语启蒙</p>
+              <p className="text-xs text-pink-400">亲子陪伴式成长计划</p>
             </div>
           </motion.button>
 
@@ -54,10 +64,16 @@ export function Navbar({ onNavigate, currentView }: NavbarProps) {
               首页
             </NavButton>
             <NavButton
-              active={!isHome}
+              active={currentView.type === 'module'}
+              onClick={handleScrollToModules}
+            >
+              模块导航
+            </NavButton>
+            <NavButton
+              active={currentView.type === 'season' || currentView.type === 'note'}
               onClick={() => onNavigate({ type: 'season', seasonId: 1 })}
             >
-              开始学习
+              佩奇笔记
             </NavButton>
           </div>
 
@@ -96,13 +112,76 @@ export function Navbar({ onNavigate, currentView }: NavbarProps) {
             首页
           </MobileNavButton>
           <MobileNavButton
-            active={!isHome}
+            active={currentView.type === 'module'}
+            onClick={() => {
+              handleScrollToModules();
+              setIsMenuOpen(false);
+            }}
+          >
+            模块导航
+          </MobileNavButton>
+          <MobileNavButton
+            active={currentView.type === 'season' || currentView.type === 'note'}
             onClick={() => {
               onNavigate({ type: 'season', seasonId: 1 });
               setIsMenuOpen(false);
             }}
           >
-            开始学习
+            佩奇笔记
+          </MobileNavButton>
+          <MobileNavButton
+            active={currentView.type === 'module' && currentView.moduleId === 'parenting'}
+            onClick={() => {
+              onNavigate({ type: 'module', moduleId: 'parenting' });
+              setIsMenuOpen(false);
+            }}
+          >
+            亲子英语
+          </MobileNavButton>
+          <MobileNavButton
+            active={currentView.type === 'module' && currentView.moduleId === 'oxford'}
+            onClick={() => {
+              onNavigate({ type: 'module', moduleId: 'oxford' });
+              setIsMenuOpen(false);
+            }}
+          >
+            牛津树精读
+          </MobileNavButton>
+          <MobileNavButton
+            active={currentView.type === 'module' && currentView.moduleId === 'raz'}
+            onClick={() => {
+              onNavigate({ type: 'module', moduleId: 'raz' });
+              setIsMenuOpen(false);
+            }}
+          >
+            RAZ 精读
+          </MobileNavButton>
+          <MobileNavButton
+            active={currentView.type === 'module' && currentView.moduleId === 'picturebooks'}
+            onClick={() => {
+              onNavigate({ type: 'module', moduleId: 'picturebooks' });
+              setIsMenuOpen(false);
+            }}
+          >
+            绘本推荐
+          </MobileNavButton>
+          <MobileNavButton
+            active={currentView.type === 'module' && currentView.moduleId === 'picturebook-extension'}
+            onClick={() => {
+              onNavigate({ type: 'module', moduleId: 'picturebook-extension' });
+              setIsMenuOpen(false);
+            }}
+          >
+            绘本拓展
+          </MobileNavButton>
+          <MobileNavButton
+            active={currentView.type === 'module' && currentView.moduleId === 'sharing'}
+            onClick={() => {
+              onNavigate({ type: 'module', moduleId: 'sharing' });
+              setIsMenuOpen(false);
+            }}
+          >
+            经验分享
           </MobileNavButton>
         </div>
       </motion.div>

@@ -48,8 +48,8 @@ export function Footer() {
               />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-white">Peppa Notes</h3>
-              <p className="text-sm text-white/80">小猪佩奇英语启蒙</p>
+              <h3 className="text-xl font-bold text-white">苒妈英语启蒙</h3>
+              <p className="text-sm text-white/80">亲子陪伴式成长计划</p>
             </div>
           </motion.div>
 
@@ -68,7 +68,7 @@ export function Footer() {
             for kids and parents
           </p>
           <p className="text-white/50 text-xs mt-2">
-            © 2024 Peppa Pig English Notes. All rights reserved.
+            © 2026 苒妈英语启蒙. All rights reserved.
           </p>
         </div>
       </div>

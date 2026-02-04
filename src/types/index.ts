@@ -75,8 +75,30 @@ export interface Note {
   games: Game[];
 }
 
+// 模块类型
+export type ModuleId =
+  | 'parenting'
+  | 'peppa'
+  | 'oxford'
+  | 'raz'
+  | 'picturebooks'
+  | 'picturebook-extension'
+  | 'sharing';
+
+export interface ModuleInfo {
+  id: ModuleId;
+  title: string;
+  subtitle: string;
+  description: string;
+  highlights: string[];
+  tag: string;
+  color: string;
+  bgColor: string;
+}
+
 // 视图状态类型
 export type ViewState = 
   | { type: 'home' }
   | { type: 'season'; seasonId: number }
-  | { type: 'note'; episodeId: string };
+  | { type: 'note'; episodeId: string }
+  | { type: 'module'; moduleId: ModuleId };
