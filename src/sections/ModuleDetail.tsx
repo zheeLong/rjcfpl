@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
 import { modules, moduleIcons } from '@/data/modules';
 import { ParentingModule } from '@/sections/ParentingModule';
+import { PicturebooksModule } from '@/sections/PicturebooksModule';
+import { OxfordTreeModule } from '@/sections/OxfordTreeModule';
 import type { ModuleId, ViewState } from '@/types';
 
 interface ModuleDetailProps {
@@ -32,6 +34,8 @@ export function ModuleDetail({ moduleId, onNavigate }: ModuleDetailProps) {
   const Icon = moduleIcons[module.id];
   const isPeppa = module.id === 'peppa';
   const isParenting = module.id === 'parenting';
+  const isPicturebooks = module.id === 'picturebooks';
+  const isOxford = module.id === 'oxford';
 
   return (
     <section className="relative py-24 md:py-28">
@@ -113,8 +117,14 @@ export function ModuleDetail({ moduleId, onNavigate }: ModuleDetailProps) {
           </div>
 
           {isParenting && <ParentingModule />}
+          {isPicturebooks && <PicturebooksModule />}
+          {isOxford && (
+            <div className="mt-8 -mx-8 -mb-10 md:-mx-10 md:-mb-10">
+              <OxfordTreeModule />
+            </div>
+          )}
 
-          {!isPeppa && !isParenting && (
+          {!isPeppa && !isParenting && !isPicturebooks && !isOxford && (
             <div className="mt-8 rounded-2xl border border-dashed border-pink-200 bg-pink-50/60 p-5 text-sm text-gray-600">
               内容正在整理中，先逛逛佩奇笔记与亲子英语模块，后续会持续更新。
             </div>
