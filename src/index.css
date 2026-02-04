@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Peppa Pig Theme - Soft Pink Palette */
+    --background: 340 100% 98%;
+    --foreground: 340 20% 30%;
+    --card: 0 0% 100%;
+    --card-foreground: 340 20% 30%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 340 20% 30%;
+    --primary: 340 100% 77%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 340 50% 95%;
+    --secondary-foreground: 340 20% 30%;
+    --muted: 340 30% 95%;
+    --muted-foreground: 340 10% 50%;
+    --accent: 340 100% 77%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 340 50% 90%;
+    --input: 340 50% 90%;
+    --ring: 340 100% 77%;
+    --radius: 1rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 340 20% 30%;
+    --sidebar-primary: 340 100% 77%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 340 50% 95%;
+    --sidebar-accent-foreground: 340 20% 30%;
+    --sidebar-border: 340 50% 90%;
+    --sidebar-ring: 340 100% 77%;
+    
+    /* Custom Peppa Colors */
+    --peppa-pink: 340 100% 77%;
+    --peppa-pink-dark: 340 70% 63%;
+    --peppa-pink-light: 340 100% 95%;
+    --peppa-coral: 355 100% 81%;
+    --peppa-peach: 5 100% 85%;
+    --peppa-cream: 25 100% 88%;
+    --peppa-mint: 100 50% 87%;
+    --peppa-lavender: 230 50% 85%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background: linear-gradient(180deg, #FFF5F7 0%, #FFE4EC 100%);
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .peppa-shadow {
+    box-shadow: 0 8px 32px rgba(255, 138, 176, 0.15);
+  }
+  
+  .peppa-shadow-hover {
+    box-shadow: 0 12px 40px rgba(255, 138, 176, 0.25);
+  }
+  
+  .peppa-card {
+    @apply bg-white rounded-3xl peppa-shadow transition-all duration-300;
+  }
+  
+  .peppa-card:hover {
+    @apply peppa-shadow-hover -translate-y-2;
+  }
+  
+  .peppa-gradient {
+    background: linear-gradient(135deg, #FF8AB0 0%, #FFB7C5 100%);
+  }
+  
+  .peppa-gradient-soft {
+    background: linear-gradient(135deg, #FFF5F7 0%, #FFE4EC 100%);
+  }
+}
