@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles } from 'lucide-react';
-import { AnimatedSection, StaggerContainer, StaggerItem } from '@/components/AnimatedSection';
+import { ArrowRight } from 'lucide-react';
+import { StaggerContainer, StaggerItem } from '@/components/AnimatedSection';
 import { modules, moduleIcons } from '@/data/modules';
 import type { ViewState } from '@/types';
 
