@@ -254,7 +254,7 @@ export function ParentingModule() {
         </motion.div>
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 py-8">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 pt-24 pb-8 md:pt-32">
         <AnimatePresence mode="wait">
           {/* 大场景列表 */}
           {!activeGroup && (
@@ -267,35 +267,17 @@ export function ParentingModule() {
               className="space-y-8"
             >
               {/* 标题区域 - 更可爱高级 */}
-              <div className="text-center space-y-4 py-8">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white shadow-lg border border-pink-100"
-                >
-                  <Sparkles className="w-4 h-4 text-pink-500" />
-                  <span className="text-pink-600 text-sm font-semibold">精选亲子英语场景</span>
-                  <Sparkles className="w-4 h-4 text-pink-500" />
-                </motion.div>
+              <div className="text-center space-y-2 md:space-y-3 py-6">
                 <motion.h2
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
-                  className="text-4xl md:text-5xl font-bold"
+                  className="text-2xl md:text-4xl font-bold"
                 >
                   <span className="bg-gradient-to-r from-pink-500 via-rose-500 to-orange-400 bg-clip-text text-transparent">
                     亲子英语场景库
                   </span>
                 </motion.h2>
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-gray-500 max-w-lg mx-auto text-base"
-                >
-                  选择感兴趣的大场景，探索实用的亲子英语表达，让英语融入日常生活
-                </motion.p>
               </div>
 
               {/* 搜索与排序 - 更精致 */}
@@ -385,39 +367,40 @@ export function ParentingModule() {
                           <p className="hidden md:block text-gray-400 text-sm mt-1">探索实用亲子英语</p>
                         </div>
 
-                        {/* 统计信息 - 更可爱 */}
-                        <div className="flex items-center gap-3">
-                          <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full ${colors.soft} ${colors.text} text-xs font-semibold`}>
-                            <BookOpen className="w-3.5 h-3.5" />
-                            {sceneCount} 个场景
-                          </span>
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 text-gray-600 text-xs font-semibold">
-                            <MessageCircle className="w-3.5 h-3.5" />
-                            {lineCount} 句
-                          </span>
-                        </div>
-
-                        {/* 底部进度和箭头 */}
-                        <div className="flex items-center justify-between pt-2">
-                          <div className="flex items-center gap-2">
-                            <div className="flex -space-x-1">
-                              {[...Array(3)].map((_, i) => (
-                                <div
-                                  key={i}
-                                  className={`w-6 h-6 rounded-full ${colors.soft} border-2 border-white flex items-center justify-center text-xs`}
-                                >
-                                  {['👶', '👩', '👨'][i]}
-                                </div>
-                              ))}
+                        {/* 底部统计和操作区 */}
+                        <div className="space-y-3 pt-2">
+                          {/* 统计信息 */}
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full ${colors.soft} ${colors.text} text-xs font-semibold`}>
+                                <BookOpen className="w-3 h-3" />
+                                {sceneCount}场景
+                              </span>
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gray-50 text-gray-600 text-xs font-semibold">
+                                <MessageCircle className="w-3 h-3" />
+                                {lineCount}句
+                              </span>
                             </div>
-                            <span className="text-xs text-gray-400">亲子互动</span>
+                            <motion.div
+                              className={`w-9 h-9 rounded-full ${colors.soft} flex items-center justify-center group-hover:${colors.accent} transition-all duration-300`}
+                              whileHover={{ scale: 1.1 }}
+                            >
+                              <ChevronRight className={`w-4 h-4 ${colors.text} group-hover:text-white transition-colors`} />
+                            </motion.div>
                           </div>
-                          <motion.div
-                            className={`w-10 h-10 rounded-full ${colors.soft} flex items-center justify-center group-hover:${colors.accent} transition-all duration-300`}
-                            whileHover={{ scale: 1.1 }}
-                          >
-                            <ChevronRight className={`w-5 h-5 ${colors.text} group-hover:text-white transition-colors`} />
-                          </motion.div>
+
+                          {/* 进度条装饰 */}
+                          <div className="flex items-center gap-1.5">
+                            <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                              <motion.div
+                                className={`h-full bg-gradient-to-r ${colors.bg} rounded-full`}
+                                initial={{ width: 0 }}
+                                animate={{ width: '100%' }}
+                                transition={{ duration: 1, delay: index * 0.1 }}
+                              />
+                            </div>
+                            <span className="text-[10px] text-gray-400 font-medium">已收录</span>
+                          </div>
                         </div>
                       </div>
 

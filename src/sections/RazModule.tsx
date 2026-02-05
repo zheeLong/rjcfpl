@@ -51,7 +51,7 @@ export function RazModule() {
   }, [selectedLevel]);
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-blue-50">
       {/* 背景装饰 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -77,7 +77,7 @@ export function RazModule() {
         </motion.div>
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 py-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 md:pt-32 md:pb-20">
         <AnimatePresence mode="wait">
           {!selectedLevel ? (
             // 级别选择页面
@@ -120,23 +120,23 @@ function LevelSelector({ onSelectLevel }: { onSelectLevel: (level: string) => vo
       className="space-y-8"
     >
       {/* 标题 */}
-      <div className="text-center space-y-4 py-8">
+      <div className="text-center space-y-3 py-6">
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 200, damping: 15 }}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white shadow-lg border border-sky-100"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-lg border border-sky-100"
         >
-          <BookOpen className="w-4 h-4 text-sky-500" />
-          <span className="text-sky-600 text-sm font-semibold">RAZ 精读</span>
-          <Sparkles className="w-4 h-4 text-sky-500" />
+          <BookOpen className="w-3.5 h-3.5 text-sky-500" />
+          <span className="text-sky-600 text-xs font-semibold">RAZ 精读</span>
+          <Sparkles className="w-3.5 h-3.5 text-sky-500" />
         </motion.div>
 
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-4xl md:text-5xl font-bold"
+          className="text-3xl md:text-4xl font-bold"
         >
           <span className="bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
             Reading A-Z
@@ -147,7 +147,7 @@ function LevelSelector({ onSelectLevel }: { onSelectLevel: (level: string) => vo
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-gray-500 max-w-lg mx-auto text-base"
+          className="text-gray-500 max-w-lg mx-auto text-sm"
         >
           选择对应级别，开启 RAZ 精读之旅
         </motion.p>
@@ -292,7 +292,7 @@ function BookList({
       </div>
 
       {/* 绘本网格 */}
-      <div className="grid grid-cols-2 gap-3 md:gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
         {books.map((book, index) => (
           <motion.button
             key={book.id}

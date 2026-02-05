@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, BookOpen, Star, Heart, Sparkles, Filter, X } from 'lucide-react';
+import { Search, BookOpen, Star, Heart, Sparkles, Filter, X, Calendar, Users, ChevronDown, ChevronUp } from 'lucide-react';
 import { pictureBooks } from '@/data/picturebooks';
 
 const normalize = (value: string) => value.trim().toLowerCase();
@@ -71,8 +71,9 @@ function CoverImage({ src, alt, gradient, initial, className }: CoverImageProps)
             onError={() => setFailed(true)}
             className={`w-full h-full object-cover transition-all duration-500 ${loaded ? 'opacity-100' : 'opacity-0'} group-hover:scale-110`}
           />
+          {/* Removed animate-pulse to stop flashing, kept fade transition */}
           <div
-            className={`absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 animate-pulse transition-opacity duration-500 ${loaded ? 'opacity-0' : 'opacity-100'
+            className={`absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 transition-opacity duration-500 ${loaded ? 'opacity-0' : 'opacity-100'
               }`}
           />
         </>
@@ -90,6 +91,7 @@ export function PicturebooksModule() {
   const [activeCategory, setActiveCategory] = useState('全部');
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [selectedBook, setSelectedBook] = useState<typeof pictureBooks[0] | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const categories = useMemo(() => {
     const map = new Map<string, number>();
@@ -162,25 +164,25 @@ export function PicturebooksModule() {
         </motion.div>
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 py-8">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 pt-24 pb-8 md:pt-32">
         {/* 标题区域 */}
-        <div className="text-center space-y-4 py-8">
+        <div className="text-center space-y-3 py-6">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white shadow-lg border border-amber-100"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-lg border border-amber-100"
           >
-            <BookOpen className="w-4 h-4 text-amber-500" />
-            <span className="text-amber-600 text-sm font-semibold">精选绘本推荐</span>
-            <Sparkles className="w-4 h-4 text-amber-500" />
+            <BookOpen className="w-3.5 h-3.5 text-amber-500" />
+            <span className="text-amber-600 text-xs font-semibold">精选绘本推荐</span>
+            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
           </motion.div>
 
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold"
+            className="text-3xl md:text-4xl font-bold"
           >
             <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-pink-500 bg-clip-text text-transparent">
               绘本推荐
@@ -191,7 +193,7 @@ export function PicturebooksModule() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-gray-500 max-w-lg mx-auto text-base"
+            className="text-gray-500 max-w-lg mx-auto text-sm"
           >
             精选优质英文绘本，陪伴孩子快乐成长，开启阅读之旅
           </motion.p>
@@ -237,7 +239,8 @@ export function PicturebooksModule() {
           transition={{ delay: 0.4 }}
           className="flex flex-wrap gap-2 mb-8"
         >
-          {categories.map((cat, index) => {
+          {/* Sliced categories based on isExpanded */}
+          {categories.slice(0, isExpanded ? undefined : 8).map((cat, index) => {
             const isActive = activeCategory === cat;
             const style = cat === '全部'
               ? { bg: 'bg-amber-50', text: 'text-amber-600', border: 'border-amber-200', gradient: 'from-amber-400 to-orange-400' }
@@ -251,8 +254,8 @@ export function PicturebooksModule() {
                 transition={{ delay: index * 0.03 }}
                 onClick={() => setActiveCategory(cat)}
                 className={`px-4 py-2 rounded-full text-sm font-medium border transition-all duration-300 ${isActive
-                    ? `bg-gradient-to-r ${style.gradient} text-white border-transparent shadow-lg`
-                    : `bg-white ${style.text} ${style.border} hover:shadow-md hover:-translate-y-0.5`
+                  ? `bg-gradient-to-r ${style.gradient} text-white border-transparent shadow-lg`
+                  : `bg-white ${style.text} ${style.border} hover:shadow-md hover:-translate-y-0.5`
                   }`}
               >
                 {cat}
@@ -264,6 +267,22 @@ export function PicturebooksModule() {
               </motion.button>
             );
           })}
+
+          {/* Toggle Button */}
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 bg-white text-gray-500 hover:bg-gray-50 hover:text-gray-700 transition-colors flex items-center gap-1"
+          >
+            {isExpanded ? (
+              <>
+                收起 <ChevronUp className="w-3 h-3" />
+              </>
+            ) : (
+              <>
+                更多 <ChevronDown className="w-3 h-3" />
+              </>
+            )}
+          </button>
         </motion.div>
 
         {/* 绘本网格 */}
@@ -426,19 +445,38 @@ export function PicturebooksModule() {
 
                 <div className="flex-1 pr-8">
                   <h2 className="text-2xl font-bold text-gray-800">{selectedBook.title}</h2>
-                  <p className="text-gray-500 mt-1">{selectedBook.author}</p>
+                  <p className="text-gray-500 mt-1 mb-3">{selectedBook.author}</p>
 
-                  <div className="flex flex-wrap items-center gap-2 mt-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    {/* Category Label */}
                     {selectedBook.category && (
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCategoryStyle(selectedBook.category).bg} ${getCategoryStyle(selectedBook.category).text}`}>
+                      <span className={`px-2.5 py-1 rounded-full text-xs font-medium border ${getCategoryStyle(selectedBook.category).bg} ${getCategoryStyle(selectedBook.category).text} ${getCategoryStyle(selectedBook.category).border}`}>
                         {selectedBook.category}
                       </span>
                     )}
+
+                    {/* Rating */}
                     {selectedBook.rating && selectedBook.rating !== '待补充' && (
-                      <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-600 text-xs font-medium flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-amber-500" />
-                        {selectedBook.rating}
-                      </span>
+                      <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-50 text-amber-600 text-xs font-medium border border-amber-100">
+                        <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+                        <span>{selectedBook.rating}</span>
+                      </div>
+                    )}
+
+                    {/* Age */}
+                    {selectedBook.age && selectedBook.age !== '待补充' && (
+                      <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-rose-50 text-rose-600 text-xs font-medium border border-rose-100">
+                        <Users className="w-3 h-3" />
+                        <span>{selectedBook.age}</span>
+                      </div>
+                    )}
+
+                    {/* Publish Date */}
+                    {selectedBook.publish && selectedBook.publish !== '待补充' && (
+                      <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-medium border border-blue-100">
+                        <Calendar className="w-3 h-3" />
+                        <span>{selectedBook.publish}</span>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -446,20 +484,6 @@ export function PicturebooksModule() {
 
               {/* 弹窗内容 */}
               <div className="p-6 space-y-6">
-                {selectedBook.age && selectedBook.age !== '待补充' && (
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="text-gray-400">适合年龄：</span>
-                    <span className="font-medium text-rose-500">{selectedBook.age}</span>
-                  </div>
-                )}
-
-                {selectedBook.publish && selectedBook.publish !== '待补充' && (
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="text-gray-400">出版时间：</span>
-                    <span className="font-medium text-gray-600">{selectedBook.publish}</span>
-                  </div>
-                )}
-
                 {selectedBook.intro && (
                   <div>
                     <h4 className="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
@@ -473,7 +497,7 @@ export function PicturebooksModule() {
                 )}
 
                 {selectedBook.parent && (
-                  <div className="bg-amber-50 rounded-2xl p-4">
+                  <div className="bg-amber-50 rounded-2xl p-4 border border-amber-100">
                     <h4 className="text-sm font-semibold text-amber-700 mb-2">家长指南</h4>
                     <p className="text-amber-600 text-sm leading-relaxed">{selectedBook.parent}</p>
                   </div>

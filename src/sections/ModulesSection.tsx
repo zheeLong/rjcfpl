@@ -10,20 +10,9 @@ interface ModulesSectionProps {
 
 export function ModulesSection({ onNavigate }: ModulesSectionProps) {
   return (
-    <section id="modules" className="py-8 md:py-20">
+    <section id="modules" className="py-4 md:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection className="text-center mb-10 md:mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-pink-100 rounded-full mb-4">
-            <Sparkles className="w-4 h-4 text-pink-500" />
-            <span className="text-sm font-semibold text-pink-600">学习模块导航</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            苒妈英语启蒙的 <span className="text-pink-500">7 大模块</span>
-          </h2>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            覆盖亲子英语、动画精读、分级阅读与绘本拓展，构建系统化启蒙路径
-          </p>
-        </AnimatedSection>
+
 
         <StaggerContainer className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
           {modules.map((module) => (
