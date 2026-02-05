@@ -4,6 +4,7 @@ import { modules, moduleIcons } from '@/data/modules';
 import { ParentingModule } from '@/sections/ParentingModule';
 import { PicturebooksModule } from '@/sections/PicturebooksModule';
 import { OxfordTreeModule } from '@/sections/OxfordTreeModule';
+import { RazModule } from '@/sections/RazModule';
 import type { ModuleId, ViewState } from '@/types';
 
 interface ModuleDetailProps {
@@ -36,6 +37,7 @@ export function ModuleDetail({ moduleId, onNavigate }: ModuleDetailProps) {
   const isParenting = module.id === 'parenting';
   const isPicturebooks = module.id === 'picturebooks';
   const isOxford = module.id === 'oxford';
+  const isRaz = module.id === 'raz';
 
   return (
     <section className="relative py-24 md:py-28">
@@ -123,8 +125,13 @@ export function ModuleDetail({ moduleId, onNavigate }: ModuleDetailProps) {
               <OxfordTreeModule />
             </div>
           )}
+          {isRaz && (
+            <div className="mt-8 -mx-8 -mb-10 md:-mx-10 md:-mb-10">
+              <RazModule />
+            </div>
+          )}
 
-          {!isPeppa && !isParenting && !isPicturebooks && !isOxford && (
+          {!isPeppa && !isParenting && !isPicturebooks && !isOxford && !isRaz && (
             <div className="mt-8 rounded-2xl border border-dashed border-pink-200 bg-pink-50/60 p-5 text-sm text-gray-600">
               内容正在整理中，先逛逛佩奇笔记与亲子英语模块，后续会持续更新。
             </div>

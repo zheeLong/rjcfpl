@@ -22,9 +22,9 @@ const categoryColors: Record<string, { bg: string; text: string; border: string;
 };
 
 const getCategoryStyle = (category: string) => {
-  return categoryColors[category] || { 
-    bg: 'bg-gray-50', 
-    text: 'text-gray-600', 
+  return categoryColors[category] || {
+    bg: 'bg-gray-50',
+    text: 'text-gray-600',
     border: 'border-gray-200',
     gradient: 'from-gray-400 to-slate-400'
   };
@@ -44,6 +44,46 @@ const cardVariants = {
     }
   })
 };
+
+type CoverImageProps = {
+  src: string;
+  alt: string;
+  gradient: string;
+  initial: string;
+  className: string;
+};
+
+function CoverImage({ src, alt, gradient, initial, className }: CoverImageProps) {
+  const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const hasImage = Boolean(src) && !failed;
+
+  return (
+    <div className={`${className} relative overflow-hidden ${hasImage ? '' : `bg-gradient-to-br ${gradient}`}`}>
+      {hasImage ? (
+        <>
+          <img
+            src={src}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+            onLoad={() => setLoaded(true)}
+            onError={() => setFailed(true)}
+            className={`w-full h-full object-cover transition-all duration-500 ${loaded ? 'opacity-100' : 'opacity-0'} group-hover:scale-110`}
+          />
+          <div
+            className={`absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 animate-pulse transition-opacity duration-500 ${loaded ? 'opacity-0' : 'opacity-100'
+              }`}
+          />
+        </>
+      ) : (
+        <div className="w-full h-full flex items-center justify-center">
+          <span className="text-3xl font-bold text-white/90">{initial}</span>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function PicturebooksModule() {
   const [query, setQuery] = useState('');
@@ -92,28 +132,28 @@ export function PicturebooksModule() {
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-pink-50">
       {/* 背景装饰 */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <motion.div 
+        <motion.div
           animate={{ y: [-5, 5, -5], rotate: [0, 5, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-20 left-10 text-6xl opacity-10"
         >
           📚
         </motion.div>
-        <motion.div 
+        <motion.div
           animate={{ y: [-5, 5, -5], rotate: [0, -5, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           className="absolute top-40 right-20 text-5xl opacity-10"
         >
           🌟
         </motion.div>
-        <motion.div 
+        <motion.div
           animate={{ y: [-5, 5, -5] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
           className="absolute bottom-40 left-20 text-4xl opacity-10"
         >
           🎨
         </motion.div>
-        <motion.div 
+        <motion.div
           animate={{ y: [-5, 5, -5], rotate: [0, 10, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
           className="absolute bottom-20 right-10 text-5xl opacity-10"
@@ -125,7 +165,7 @@ export function PicturebooksModule() {
       <div className="relative z-10 max-w-6xl mx-auto px-4 py-8">
         {/* 标题区域 */}
         <div className="text-center space-y-4 py-8">
-          <motion.div 
+          <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
@@ -135,8 +175,8 @@ export function PicturebooksModule() {
             <span className="text-amber-600 text-sm font-semibold">精选绘本推荐</span>
             <Sparkles className="w-4 h-4 text-amber-500" />
           </motion.div>
-          
-          <motion.h2 
+
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -146,8 +186,8 @@ export function PicturebooksModule() {
               绘本推荐
             </span>
           </motion.h2>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -158,7 +198,7 @@ export function PicturebooksModule() {
         </div>
 
         {/* 搜索和统计 */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
@@ -181,7 +221,7 @@ export function PicturebooksModule() {
               </button>
             )}
           </div>
-          
+
           <div className="flex items-center gap-3">
             <Filter className="w-4 h-4 text-gray-400" />
             <p className="text-sm text-gray-500">
@@ -191,7 +231,7 @@ export function PicturebooksModule() {
         </motion.div>
 
         {/* 分类筛选 */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -199,10 +239,10 @@ export function PicturebooksModule() {
         >
           {categories.map((cat, index) => {
             const isActive = activeCategory === cat;
-            const style = cat === '全部' 
+            const style = cat === '全部'
               ? { bg: 'bg-amber-50', text: 'text-amber-600', border: 'border-amber-200', gradient: 'from-amber-400 to-orange-400' }
               : getCategoryStyle(cat);
-            
+
             return (
               <motion.button
                 key={cat}
@@ -210,11 +250,10 @@ export function PicturebooksModule() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.03 }}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium border transition-all duration-300 ${
-                  isActive
+                className={`px-4 py-2 rounded-full text-sm font-medium border transition-all duration-300 ${isActive
                     ? `bg-gradient-to-r ${style.gradient} text-white border-transparent shadow-lg`
                     : `bg-white ${style.text} ${style.border} hover:shadow-md hover:-translate-y-0.5`
-                }`}
+                  }`}
               >
                 {cat}
                 {cat !== '全部' && (
@@ -228,7 +267,7 @@ export function PicturebooksModule() {
         </motion.div>
 
         {/* 绘本网格 */}
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((book, index) => {
               const hasCover = Boolean(book.cover) && book.cover.toLowerCase() !== 'image.png';
@@ -237,7 +276,7 @@ export function PicturebooksModule() {
               const bookKey = `${book.title}-${book.author}`;
               const isFavorite = favorites.has(bookKey);
               const categoryStyle = getCategoryStyle(book.category || '单本');
-              
+
               return (
                 <motion.article
                   key={bookKey}
@@ -248,34 +287,27 @@ export function PicturebooksModule() {
                   animate="visible"
                   exit={{ opacity: 0, scale: 0.9 }}
                   onClick={() => setSelectedBook(book)}
-                  className="group rounded-3xl bg-white p-5 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 cursor-pointer relative overflow-hidden"
+                  className="group rounded-2xl md:rounded-3xl bg-white p-3 md:p-5 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 cursor-pointer relative overflow-hidden"
                 >
                   {/* 收藏按钮 */}
                   <button
                     onClick={(e) => toggleFavorite(bookKey, e)}
-                    className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm shadow-md flex items-center justify-center transition-all hover:scale-110"
+                    className="absolute top-2 right-2 md:top-4 md:right-4 z-20 w-7 h-7 md:w-9 md:h-9 rounded-full bg-white/90 backdrop-blur-sm shadow-md flex items-center justify-center transition-all hover:scale-110"
                   >
-                    <Heart className={`w-4 h-4 transition-colors ${isFavorite ? 'fill-rose-500 text-rose-500' : 'text-gray-400 hover:text-rose-400'}`} />
+                    <Heart className={`w-3 h-3 md:w-4 md:h-4 transition-colors ${isFavorite ? 'fill-rose-500 text-rose-500' : 'text-gray-400 hover:text-rose-400'}`} />
                   </button>
 
-                  <div className="flex gap-4">
+                  <div className="flex flex-col md:flex-row gap-3 md:gap-4">
                     {/* 封面 */}
-                    <div className={`w-24 h-32 rounded-2xl flex-shrink-0 overflow-hidden shadow-lg relative ${
-                      coverSrc ? '' : `bg-gradient-to-br ${categoryStyle.gradient}`
-                    }`}>
-                      {coverSrc ? (
-                        <img
-                          src={coverSrc}
-                          alt={book.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <span className="text-3xl font-bold text-white/90">{titleInitial}</span>
-                        </div>
-                      )}
-                      
+                    <div className="w-full md:w-24 h-32 md:h-32 rounded-xl md:rounded-2xl flex-shrink-0 shadow-lg relative">
+                      <CoverImage
+                        src={coverSrc}
+                        alt={book.title}
+                        gradient={categoryStyle.gradient}
+                        initial={titleInitial}
+                        className="w-full h-full rounded-2xl"
+                      />
+
                       {/* 评分徽章 */}
                       {book.rating && book.rating !== '待补充' && (
                         <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-amber-400 text-white text-xs font-bold shadow-md flex items-center gap-0.5">
@@ -297,7 +329,7 @@ export function PicturebooksModule() {
                       </div>
 
                       {/* 标题 */}
-                      <h3 className="text-lg font-bold text-gray-800 group-hover:text-amber-600 transition-colors line-clamp-2 leading-tight">
+                      <h3 className="text-sm md:text-lg font-bold text-gray-800 group-hover:text-amber-600 transition-colors line-clamp-2 leading-tight">
                         {book.title}
                       </h3>
 
@@ -324,7 +356,7 @@ export function PicturebooksModule() {
                       <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
                         {book.intro}
                       </p>
-                      <p className="text-xs text-amber-500 mt-2 font-medium group-hover:text-amber-600 transition-colors">
+                      <p className="hidden md:block text-xs text-amber-500 mt-2 font-medium group-hover:text-amber-600 transition-colors">
                         点击查看详情 →
                       </p>
                     </div>
@@ -340,7 +372,7 @@ export function PicturebooksModule() {
 
         {/* 空状态 */}
         {filtered.length === 0 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="rounded-3xl border-2 border-dashed border-amber-200 p-16 text-center bg-white/50"
@@ -384,30 +416,18 @@ export function PicturebooksModule() {
                   <X className="w-4 h-4 text-gray-500" />
                 </button>
 
-                <div className={`w-20 h-28 rounded-xl flex-shrink-0 overflow-hidden shadow-lg ${
-                  selectedBook.cover && selectedBook.cover.toLowerCase() !== 'image.png' 
-                    ? '' 
-                    : `bg-gradient-to-br ${getCategoryStyle(selectedBook.category || '单本').gradient}`
-                }`}>
-                  {selectedBook.cover && selectedBook.cover.toLowerCase() !== 'image.png' ? (
-                    <img
-                      src={selectedBook.cover}
-                      alt={selectedBook.title}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <span className="text-2xl font-bold text-white/90">
-                        {selectedBook.title?.slice(0, 1).toUpperCase()}
-                      </span>
-                    </div>
-                  )}
-                </div>
+                <CoverImage
+                  src={selectedBook.cover && selectedBook.cover.toLowerCase() !== 'image.png' ? selectedBook.cover : ''}
+                  alt={selectedBook.title}
+                  gradient={getCategoryStyle(selectedBook.category || '单本').gradient}
+                  initial={selectedBook.title?.slice(0, 1).toUpperCase() || 'B'}
+                  className="w-20 h-28 rounded-xl flex-shrink-0 shadow-lg"
+                />
 
                 <div className="flex-1 pr-8">
                   <h2 className="text-2xl font-bold text-gray-800">{selectedBook.title}</h2>
                   <p className="text-gray-500 mt-1">{selectedBook.author}</p>
-                  
+
                   <div className="flex flex-wrap items-center gap-2 mt-3">
                     {selectedBook.category && (
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCategoryStyle(selectedBook.category).bg} ${getCategoryStyle(selectedBook.category).text}`}>

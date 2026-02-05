@@ -1,23 +1,15 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, ChevronRight, Search, Clock, ArrowLeft, Sparkles } from 'lucide-react';
-import { oxfordTreeLevels, getOxfordBooksByLevel, type OxfordBook } from '@/data/oxfordTree';
+import { razLevels, getRazBooksByLevel, type RazBook } from '@/data/raz';
 
 // 级别颜色配置
 const levelColors: Record<string, { bg: string; text: string; gradient: string; light: string }> = {
-  l1: { bg: 'bg-green-50', text: 'text-green-600', gradient: 'from-green-400 to-emerald-500', light: 'bg-green-100' },
-  l2: { bg: 'bg-blue-50', text: 'text-blue-600', gradient: 'from-blue-400 to-indigo-500', light: 'bg-blue-100' },
-  l3: { bg: 'bg-purple-50', text: 'text-purple-600', gradient: 'from-purple-400 to-violet-500', light: 'bg-purple-100' },
-  l4: { bg: 'bg-orange-50', text: 'text-orange-600', gradient: 'from-orange-400 to-amber-500', light: 'bg-orange-100' },
-  l5: { bg: 'bg-pink-50', text: 'text-pink-600', gradient: 'from-pink-400 to-rose-500', light: 'bg-pink-100' },
-  l6: { bg: 'bg-red-50', text: 'text-red-600', gradient: 'from-red-400 to-rose-500', light: 'bg-red-100' },
-  l7: { bg: 'bg-teal-50', text: 'text-teal-600', gradient: 'from-teal-400 to-cyan-500', light: 'bg-teal-100' },
-  l8: { bg: 'bg-indigo-50', text: 'text-indigo-600', gradient: 'from-indigo-400 to-blue-500', light: 'bg-indigo-100' },
-  l9: { bg: 'bg-amber-50', text: 'text-amber-600', gradient: 'from-amber-400 to-yellow-500', light: 'bg-amber-100' },
+  b: { bg: 'bg-sky-50', text: 'text-sky-600', gradient: 'from-sky-400 to-blue-500', light: 'bg-sky-100' },
 };
 
 const getLevelStyle = (levelId: string) => {
-  return levelColors[levelId] || levelColors.l1;
+  return levelColors[levelId] || levelColors.b;
 };
 
 // 卡片动画
@@ -34,15 +26,15 @@ const cardVariants = {
   })
 };
 
-export function OxfordTreeModule() {
+export function RazModule() {
   const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
-  const [selectedBook, setSelectedBook] = useState<OxfordBook | null>(null);
+  const [selectedBook, setSelectedBook] = useState<RazBook | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
   // 获取当前级别的绘本
   const currentBooks = useMemo(() => {
     if (!selectedLevel) return [];
-    const books = getOxfordBooksByLevel(selectedLevel);
+    const books = getRazBooksByLevel(selectedLevel);
     if (!searchQuery) return books;
 
     const query = searchQuery.toLowerCase();
@@ -55,11 +47,11 @@ export function OxfordTreeModule() {
 
   // 当前级别信息
   const currentLevelInfo = useMemo(() => {
-    return oxfordTreeLevels.find(l => l.id === selectedLevel);
+    return razLevels.find(l => l.id === selectedLevel);
   }, [selectedLevel]);
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-teal-50">
+    <div className="relative overflow-hidden rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-blue-50">
       {/* 背景装饰 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -133,11 +125,11 @@ function LevelSelector({ onSelectLevel }: { onSelectLevel: (level: string) => vo
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 200, damping: 15 }}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white shadow-lg border border-emerald-100"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white shadow-lg border border-sky-100"
         >
-          <BookOpen className="w-4 h-4 text-emerald-500" />
-          <span className="text-emerald-600 text-sm font-semibold">牛津阅读树</span>
-          <Sparkles className="w-4 h-4 text-emerald-500" />
+          <BookOpen className="w-4 h-4 text-sky-500" />
+          <span className="text-sky-600 text-sm font-semibold">RAZ 精读</span>
+          <Sparkles className="w-4 h-4 text-sky-500" />
         </motion.div>
 
         <motion.h2
@@ -146,8 +138,8 @@ function LevelSelector({ onSelectLevel }: { onSelectLevel: (level: string) => vo
           transition={{ delay: 0.1 }}
           className="text-4xl md:text-5xl font-bold"
         >
-          <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">
-            Oxford Reading Tree
+          <span className="bg-gradient-to-r from-sky-500 via-blue-500 to-indigo-500 bg-clip-text text-transparent">
+            Reading A-Z
           </span>
         </motion.h2>
 
@@ -157,13 +149,13 @@ function LevelSelector({ onSelectLevel }: { onSelectLevel: (level: string) => vo
           transition={{ delay: 0.2 }}
           className="text-gray-500 max-w-lg mx-auto text-base"
         >
-          选择适合的级别，开启精读之旅，Susan老师带你深度阅读
+          选择对应级别，开启 RAZ 精读之旅
         </motion.p>
       </div>
 
       {/* 级别网格 */}
       <div className="grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-3">
-        {oxfordTreeLevels.map((level, index) => {
+        {razLevels.map((level, index) => {
           const style = getLevelStyle(level.id);
           return (
             <motion.button
@@ -187,7 +179,7 @@ function LevelSelector({ onSelectLevel }: { onSelectLevel: (level: string) => vo
 
               {/* 内容区域 */}
               <div className="p-3 md:p-5 space-y-2 md:space-y-3">
-                <h3 className="text-xl font-bold text-gray-800 group-hover:text-emerald-600 transition-colors">
+                <h3 className="text-xl font-bold text-gray-800 group-hover:text-sky-600 transition-colors">
                   {level.name}
                 </h3>
 
@@ -228,11 +220,11 @@ function BookList({
   onSelectBook,
   onBack
 }: {
-  level: typeof oxfordTreeLevels[0] | undefined;
-  books: OxfordBook[];
+  level: typeof razLevels[0] | undefined;
+  books: RazBook[];
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  onSelectBook: (book: OxfordBook) => void;
+  onSelectBook: (book: RazBook) => void;
   onBack: () => void;
 }) {
   if (!level) return null;
@@ -247,10 +239,10 @@ function BookList({
     >
       {/* 返回按钮和标题 */}
       <div className="space-y-4">
-        <div className="sticky top-16 md:top-20 z-40 bg-white/90 backdrop-blur-md rounded-2xl p-2 shadow-sm border border-emerald-100">
+        <div className="sticky top-16 md:top-20 z-40 bg-white/90 backdrop-blur-md rounded-2xl p-2 shadow-sm border border-sky-100">
           <button
             onClick={onBack}
-            className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-emerald-50 text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-all"
+            className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-sky-50 text-sm font-semibold text-gray-600 hover:text-sky-600 transition-all"
           >
             <ArrowLeft className="w-4 h-4" />
             返回级别选择
@@ -291,7 +283,7 @@ function BookList({
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="搜索绘本..."
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 pl-10 text-sm text-gray-700 shadow-inner focus:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-100 transition-all"
+            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 pl-10 text-sm text-gray-700 shadow-inner focus:border-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-100 transition-all"
           />
         </div>
         <p className="text-xs md:text-sm text-gray-500 text-right md:text-left">
@@ -309,7 +301,7 @@ function BookList({
             initial="hidden"
             animate="visible"
             onClick={() => onSelectBook(book)}
-            className="group text-left rounded-2xl bg-white p-3 md:p-5 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-emerald-200"
+            className="group text-left rounded-2xl bg-white p-3 md:p-5 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-sky-200"
           >
             <div className="flex items-start gap-2 md:gap-4">
               {/* 序号 */}
@@ -318,7 +310,7 @@ function BookList({
               </div>
 
               <div className="flex-1 min-w-0">
-                <h3 className="text-sm md:text-lg font-bold text-gray-800 group-hover:text-emerald-600 transition-colors mb-0.5 md:mb-1 line-clamp-1">
+                <h3 className="text-sm md:text-lg font-bold text-gray-800 group-hover:text-sky-600 transition-colors mb-0.5 md:mb-1 line-clamp-1">
                   {book.title}
                 </h3>
 
@@ -342,14 +334,14 @@ function BookList({
                 )}
               </div>
 
-              <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
+              <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-sky-400 group-hover:translate-x-1 transition-all" />
             </div>
           </motion.button>
         ))}
       </div>
 
       {books.length === 0 && (
-        <div className="rounded-3xl border-2 border-dashed border-emerald-200 p-12 text-center bg-white/50"
+        <div className="rounded-3xl border-2 border-dashed border-sky-200 p-12 text-center bg-white/50"
         >
           <div className="text-6xl mb-4">🔍</div>
           <p className="text-gray-500 text-lg">没有找到匹配的绘本</p>
@@ -361,8 +353,8 @@ function BookList({
 }
 
 // 绘本详情组件
-function BookDetail({ book, onBack }: { book: OxfordBook; onBack: () => void }) {
-  const style = getLevelStyle('l1'); // 使用L1样式，后续可根据book.level动态获取
+function BookDetail({ book, onBack }: { book: RazBook; onBack: () => void }) {
+  const style = getLevelStyle('b');
 
   return (
     <motion.div
@@ -376,7 +368,7 @@ function BookDetail({ book, onBack }: { book: OxfordBook; onBack: () => void }) 
       >
         <button
           onClick={onBack}
-          className="flex-shrink-0 inline-flex items-center gap-1 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-gray-50 hover:bg-emerald-50 text-xs md:text-sm font-semibold text-gray-600 hover:text-emerald-600 transition-all"
+          className="flex-shrink-0 inline-flex items-center gap-1 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-gray-50 hover:bg-sky-50 text-xs md:text-sm font-semibold text-gray-600 hover:text-sky-600 transition-all"
         >
           <ArrowLeft className="w-3.5 h-3.5 md:w-4 md:h-4" />
           <span className="hidden md:inline">返回列表</span>
@@ -386,16 +378,16 @@ function BookDetail({ book, onBack }: { book: OxfordBook; onBack: () => void }) 
           <span className="text-gray-300">/</span>
           <span className="text-gray-500">{book.episode}</span>
           <ChevronRight className="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-300 flex-shrink-0" />
-          <span className="font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 md:px-3 md:py-1 rounded-full truncate">
+          <span className="font-semibold text-sky-600 bg-sky-50 px-2 py-0.5 md:px-3 md:py-1 rounded-full truncate">
             {book.title}
           </span>
         </div>
       </div>
 
       {/* 绘本标题卡片 */}
-      <div className="rounded-3xl bg-white p-6 md:p-8 shadow-xl border border-emerald-100 relative overflow-hidden"
+      <div className="rounded-3xl bg-white p-6 md:p-8 shadow-xl border border-sky-100 relative overflow-hidden"
       >
-        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-full blur-3xl opacity-50" />
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-sky-100 to-blue-100 rounded-full blur-3xl opacity-50" />
 
         <div className="relative">
           <div className="flex items-center gap-5">
@@ -406,8 +398,8 @@ function BookDetail({ book, onBack }: { book: OxfordBook; onBack: () => void }) 
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-800">{book.title}</h2>
               <p className="text-gray-500 mt-2 flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-emerald-400" />
-                牛津树 {book.level} 精读拓展
+                <BookOpen className="w-4 h-4 text-sky-400" />
+                RAZ {book.level} 精读拓展
               </p>
             </div>
           </div>
@@ -421,7 +413,7 @@ function BookDetail({ book, onBack }: { book: OxfordBook; onBack: () => void }) 
         <div className="rounded-2xl bg-white p-6 shadow-md border border-gray-100"
         >
           <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-            <span className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center">
+            <span className="w-8 h-8 rounded-lg bg-sky-100 text-sky-600 flex items-center justify-center">
               📖
             </span>
             核心词汇 ({book.vocabulary.length}个)
@@ -433,15 +425,15 @@ function BookDetail({ book, onBack }: { book: OxfordBook; onBack: () => void }) 
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.03 }}
-                className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 hover:bg-emerald-50 transition-colors"
+                className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 hover:bg-sky-50 transition-colors"
               >
-                <span className="w-6 h-6 rounded-full bg-emerald-200 text-emerald-700 flex items-center justify-center text-xs font-bold flex-shrink-0">
+                <span className="w-6 h-6 rounded-full bg-sky-200 text-sky-700 flex items-center justify-center text-xs font-bold flex-shrink-0">
                   {index + 1}
                 </span>
                 <div className="flex-1">
                   <span className="font-bold text-gray-800">{vocab.word}</span>
                   <span className="text-gray-500 mx-2">{vocab.phonetic}</span>
-                  <span className="text-emerald-600">{vocab.meaning}</span>
+                  <span className="text-sky-600">{vocab.meaning}</span>
                 </div>
               </motion.div>
             ))}
@@ -487,7 +479,7 @@ function BookDetail({ book, onBack }: { book: OxfordBook; onBack: () => void }) 
       <div className="rounded-2xl bg-white p-6 md:p-8 shadow-md border border-gray-100"
       >
         <h3 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
-          <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-500 text-white flex items-center justify-center text-sm">
+          <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-400 to-blue-500 text-white flex items-center justify-center text-sm">
             Susan
           </span>
           老师精读拓展
@@ -495,11 +487,11 @@ function BookDetail({ book, onBack }: { book: OxfordBook; onBack: () => void }) 
 
         {/* 英文原文 */}
         <div className="mb-8">
-          <h4 className="text-sm font-semibold text-emerald-600 mb-3 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          <h4 className="text-sm font-semibold text-sky-600 mb-3 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
             英文原文
           </h4>
-          <div className="prose prose-emerald max-w-none">
+          <div className="prose prose-sky max-w-none">
             {book.extensionEn.split('\n\n').filter(p => p.trim()).map((paragraph, index) => (
               <motion.p
                 key={index}
@@ -538,7 +530,7 @@ function BookDetail({ book, onBack }: { book: OxfordBook; onBack: () => void }) 
 
       {/* 底部提示 */}
       <div className="text-center py-8">
-        <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-600 shadow-md">
+        <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-sky-100 to-blue-100 text-sky-600 shadow-md">
           <Sparkles className="w-5 h-5" />
           <span className="font-semibold">继续加油，阅读让我们成长！</span>
           <Sparkles className="w-5 h-5" />

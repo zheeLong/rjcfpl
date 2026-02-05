@@ -34,7 +34,7 @@ const highlights = [
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="py-20 md:py-28">
+    <section id="features" className="py-10 md:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <AnimatedSection className="text-center mb-12 md:mb-16">
@@ -42,7 +42,7 @@ export function FeaturesSection() {
             <Sparkles className="w-4 h-4 text-pink-500" />
             <span className="text-sm font-semibold text-pink-600">为什么选择苒妈英语启蒙</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-800 mb-4">
             让英语启蒙变得 <span className="text-pink-500">更系统更落地</span>
           </h2>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto">
@@ -97,15 +97,15 @@ function FeatureCard({ icon: Icon, title, description, color, bgColor }: Feature
       className="group h-full"
       whileHover={{ y: -8 }}
     >
-      <div 
-        className="relative overflow-hidden rounded-3xl p-6 md:p-8 h-full transition-all duration-300"
-        style={{ 
+      <div
+        className="relative overflow-hidden rounded-3xl p-4 md:p-8 h-full transition-all duration-300"
+        style={{
           backgroundColor: 'white',
           boxShadow: `0 8px 32px ${color}20`,
         }}
       >
         {/* Background Gradient */}
-        <div 
+        <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           style={{
             background: `linear-gradient(135deg, ${bgColor} 0%, white 100%)`,
@@ -115,7 +115,7 @@ function FeatureCard({ icon: Icon, title, description, color, bgColor }: Feature
         {/* Content */}
         <div className="relative z-10">
           {/* Icon */}
-          <div 
+          <div
             className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"
             style={{ backgroundColor: color }}
           >
@@ -130,7 +130,7 @@ function FeatureCard({ icon: Icon, title, description, color, bgColor }: Feature
         </div>
 
         {/* Decorative Circle */}
-        <div 
+        <div
           className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full opacity-10 transition-transform duration-500 group-hover:scale-150"
           style={{ backgroundColor: color }}
         />

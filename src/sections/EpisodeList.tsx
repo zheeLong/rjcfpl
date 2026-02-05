@@ -18,7 +18,7 @@ export function EpisodeList({ seasonId, onNavigate }: EpisodeListProps) {
   if (!season) return null;
 
   return (
-    <section className="py-20 md:py-28 pt-28">
+    <section className="py-6 md:py-28 pt-20 md:pt-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Button */}
         <AnimatedSection>
@@ -34,16 +34,16 @@ export function EpisodeList({ seasonId, onNavigate }: EpisodeListProps) {
 
         {/* Season Header */}
         <AnimatedSection className="mb-10">
-          <div 
+          <div
             className="relative overflow-hidden rounded-3xl p-8 md:p-10"
             style={{ backgroundColor: season.bgColor }}
           >
             {/* Decorative Elements */}
-            <div 
+            <div
               className="absolute -top-10 -right-10 w-40 h-40 rounded-full opacity-30"
               style={{ backgroundColor: season.color }}
             />
-            <div 
+            <div
               className="absolute -bottom-8 -left-8 w-24 h-24 rounded-full opacity-20"
               style={{ backgroundColor: season.color }}
             />
@@ -51,7 +51,7 @@ export function EpisodeList({ seasonId, onNavigate }: EpisodeListProps) {
             <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <div 
+                  <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center"
                     style={{ backgroundColor: season.color }}
                   >
@@ -66,9 +66,9 @@ export function EpisodeList({ seasonId, onNavigate }: EpisodeListProps) {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div 
+                <div
                   className="px-5 py-2.5 rounded-xl font-semibold"
-                  style={{ 
+                  style={{
                     backgroundColor: `${season.color}30`,
                     color: season.color,
                   }}
@@ -82,7 +82,7 @@ export function EpisodeList({ seasonId, onNavigate }: EpisodeListProps) {
 
         {/* Episodes Grid */}
         {episodes.length > 0 ? (
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <StaggerContainer className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
             {episodes.map((episode) => (
               <StaggerItem key={episode.id}>
                 <EpisodeCard

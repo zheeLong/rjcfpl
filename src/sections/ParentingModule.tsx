@@ -97,9 +97,9 @@ const getGroupIcon = (groupId: string): string => {
 
 // 获取大场景配色
 const getGroupColors = (groupId: string) => {
-  return groupGradients[groupId] || { 
-    bg: 'from-pink-300 via-rose-300 to-orange-200', 
-    text: 'text-pink-600', 
+  return groupGradients[groupId] || {
+    bg: 'from-pink-300 via-rose-300 to-orange-200',
+    text: 'text-pink-600',
     accent: 'bg-pink-500',
     soft: 'bg-pink-50'
   };
@@ -224,28 +224,28 @@ export function ParentingModule() {
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-rose-50">
       {/* 可爱的背景装饰 */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <motion.div 
+        <motion.div
           animate={{ y: [-5, 5, -5] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-20 left-10 text-6xl opacity-10"
         >
           🌸
         </motion.div>
-        <motion.div 
+        <motion.div
           animate={{ y: [-5, 5, -5] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           className="absolute top-40 right-20 text-5xl opacity-10"
         >
           ⭐
         </motion.div>
-        <motion.div 
+        <motion.div
           animate={{ y: [-5, 5, -5] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2 }}
           className="absolute bottom-40 left-20 text-4xl opacity-10"
         >
           🎈
         </motion.div>
-        <motion.div 
+        <motion.div
           animate={{ y: [-5, 5, -5] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
           className="absolute bottom-20 right-10 text-5xl opacity-10"
@@ -268,7 +268,7 @@ export function ParentingModule() {
             >
               {/* 标题区域 - 更可爱高级 */}
               <div className="text-center space-y-4 py-8">
-                <motion.div 
+                <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 200, damping: 15 }}
@@ -278,7 +278,7 @@ export function ParentingModule() {
                   <span className="text-pink-600 text-sm font-semibold">精选亲子英语场景</span>
                   <Sparkles className="w-4 h-4 text-pink-500" />
                 </motion.div>
-                <motion.h2 
+                <motion.h2
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
@@ -288,7 +288,7 @@ export function ParentingModule() {
                     亲子英语场景库
                   </span>
                 </motion.h2>
-                <motion.p 
+                <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
@@ -299,42 +299,43 @@ export function ParentingModule() {
               </div>
 
               {/* 搜索与排序 - 更精致 */}
-              <motion.div 
+              {/* 搜索与排序 - 更精致 (吸顶) */}
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-pink-100"
+                className="sticky top-16 md:top-20 z-40 flex flex-col md:flex-row gap-3 md:items-center md:justify-between bg-white/90 backdrop-blur-md rounded-2xl p-3 md:p-4 shadow-sm border border-pink-100 mb-6"
               >
-                <div className="relative flex-1 max-w-md">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <input
                     value={groupQuery}
                     onChange={(event) => setGroupQuery(event.target.value)}
-                    placeholder="搜索大场景 / 小场景 / 句子..."
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 pl-11 text-sm text-gray-700 shadow-inner focus:border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-100 transition-all"
+                    placeholder="搜索大场景 / 小场景..."
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 pl-10 text-sm text-gray-700 shadow-inner focus:border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-100 transition-all"
                   />
                 </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <span className="text-gray-400 font-medium">排序</span>
+                <div className="flex items-center justify-end gap-2 text-sm">
+                  <span className="text-gray-400 font-medium text-xs md:text-sm">排序</span>
                   <select
                     value={groupSort}
                     onChange={(event) => setGroupSort(event.target.value as 'recommended' | 'name' | 'count')}
-                    className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-700 shadow-sm focus:border-pink-300 focus:outline-none cursor-pointer hover:border-pink-200 transition-colors"
+                    className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-700 shadow-sm focus:border-pink-300 focus:outline-none cursor-pointer"
                   >
                     <option value="recommended">✨ 推荐</option>
-                    <option value="name">🔤 按名称</option>
-                    <option value="count">📊 按场景数</option>
+                    <option value="name">🔤 名称</option>
+                    <option value="count">📊 数量</option>
                   </select>
                 </div>
               </motion.div>
 
               {/* 大场景卡片网格 - 全新设计 */}
-              <div className="grid gap-5 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-2 gap-3 md:gap-6 lg:grid-cols-3">
                 {filteredGroups.map((group, index) => {
                   const colors = getGroupColors(group.id);
                   const sceneCount = group.scenes.length;
                   const lineCount = group.scenes.reduce((sum, s) => sum + s.lines.length, 0);
-                  
+
                   return (
                     <motion.button
                       key={group.id}
@@ -343,28 +344,28 @@ export function ParentingModule() {
                       initial="hidden"
                       animate="visible"
                       onClick={() => setActiveGroupId(group.id)}
-                      className="group relative text-left rounded-3xl overflow-hidden bg-white shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100"
+                      className="group relative text-left rounded-2xl md:rounded-3xl overflow-hidden bg-white shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100"
                     >
                       {/* 顶部渐变色块 - 更柔和 */}
-                      <div className={`h-36 bg-gradient-to-br ${colors.bg} relative overflow-hidden`}>
+                      <div className={`h-24 md:h-36 bg-gradient-to-br ${colors.bg} relative overflow-hidden`}>
                         {/* 装饰图案 */}
                         <div className="absolute inset-0 opacity-20">
                           <div className="absolute top-4 right-4 w-20 h-20 rounded-full bg-white/30 blur-xl" />
                           <div className="absolute bottom-4 left-4 w-16 h-16 rounded-full bg-white/20 blur-lg" />
                         </div>
-                        
+
                         {/* 大图标 */}
-                        <motion.div 
+                        <motion.div
                           className="absolute top-4 right-4 text-7xl opacity-40"
                           whileHover={{ scale: 1.1, rotate: 10 }}
                           transition={{ type: "spring", stiffness: 300 }}
                         >
                           {getGroupIcon(group.id)}
                         </motion.div>
-                        
+
                         {/* 小图标和标题 */}
-                        <div className="absolute bottom-4 left-5">
-                          <div className="w-14 h-14 rounded-2xl bg-white/30 backdrop-blur-sm flex items-center justify-center text-3xl shadow-lg">
+                        <div className="absolute bottom-2 left-3 md:bottom-4 md:left-5">
+                          <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white/30 backdrop-blur-sm flex items-center justify-center text-2xl md:text-3xl shadow-lg">
                             {getGroupIcon(group.id)}
                           </div>
                         </div>
@@ -376,14 +377,14 @@ export function ParentingModule() {
                       </div>
 
                       {/* 内容区域 - 更精致 */}
-                      <div className="p-5 space-y-4">
+                      <div className="p-3 md:p-5 space-y-2 md:space-y-4">
                         <div>
-                          <h3 className={`text-xl font-bold text-gray-800 group-hover:${colors.text} transition-colors`}>
+                          <h3 className={`text-base md:text-xl font-bold text-gray-800 group-hover:${colors.text} transition-colors line-clamp-1`}>
                             {group.title}
                           </h3>
-                          <p className="text-gray-400 text-sm mt-1">探索实用亲子英语</p>
+                          <p className="hidden md:block text-gray-400 text-sm mt-1">探索实用亲子英语</p>
                         </div>
-                        
+
                         {/* 统计信息 - 更可爱 */}
                         <div className="flex items-center gap-3">
                           <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full ${colors.soft} ${colors.text} text-xs font-semibold`}>
@@ -401,8 +402,8 @@ export function ParentingModule() {
                           <div className="flex items-center gap-2">
                             <div className="flex -space-x-1">
                               {[...Array(3)].map((_, i) => (
-                                <div 
-                                  key={i} 
+                                <div
+                                  key={i}
                                   className={`w-6 h-6 rounded-full ${colors.soft} border-2 border-white flex items-center justify-center text-xs`}
                                 >
                                   {['👶', '👩', '👨'][i]}
@@ -411,7 +412,7 @@ export function ParentingModule() {
                             </div>
                             <span className="text-xs text-gray-400">亲子互动</span>
                           </div>
-                          <motion.div 
+                          <motion.div
                             className={`w-10 h-10 rounded-full ${colors.soft} flex items-center justify-center group-hover:${colors.accent} transition-all duration-300`}
                             whileHover={{ scale: 1.1 }}
                           >
@@ -426,7 +427,7 @@ export function ParentingModule() {
                   );
                 })}
                 {filteredGroups.length === 0 && (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="col-span-full rounded-3xl border-2 border-dashed border-pink-200 p-12 text-center bg-white/50"
@@ -463,7 +464,7 @@ export function ParentingModule() {
                 </motion.button>
 
                 {/* 大场景标题卡片 - 更高级 */}
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
@@ -474,9 +475,9 @@ export function ParentingModule() {
                     <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white/20 blur-3xl" />
                     <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-white/10 blur-2xl" />
                   </div>
-                  
+
                   <div className="relative flex items-start gap-5">
-                    <motion.div 
+                    <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
@@ -502,37 +503,38 @@ export function ParentingModule() {
               </div>
 
               {/* 小场景搜索与排序 */}
-              <motion.div 
+              {/* 小场景搜索与排序 (吸顶) */}
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-100"
+                className="sticky top-16 md:top-20 z-40 flex flex-col md:flex-row gap-3 md:items-center md:justify-between bg-white/90 backdrop-blur-md rounded-2xl p-3 md:p-4 shadow-sm border border-gray-100 mb-6"
               >
-                <div className="relative flex-1 max-w-md">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <input
                     value={sceneQuery}
                     onChange={(event) => setSceneQuery(event.target.value)}
-                    placeholder="搜索当前大场景的小场景或句子..."
-                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 pl-11 text-sm text-gray-700 shadow-inner focus:border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-100 transition-all"
+                    placeholder="搜索小场景 / 句子..."
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 pl-10 text-sm text-gray-700 shadow-inner focus:border-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-100 transition-all"
                   />
                 </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <span className="text-gray-400 font-medium">排序</span>
+                <div className="flex items-center justify-end gap-2 text-sm">
+                  <span className="text-gray-400 font-medium text-xs md:text-sm">排序</span>
                   <select
                     value={sceneSort}
                     onChange={(event) => setSceneSort(event.target.value as 'recommended' | 'name' | 'count')}
-                    className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-700 shadow-sm focus:border-pink-300 focus:outline-none cursor-pointer hover:border-pink-200 transition-colors"
+                    className="rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-sm text-gray-700 shadow-sm focus:border-pink-300 focus:outline-none cursor-pointer"
                   >
                     <option value="recommended">✨ 推荐</option>
-                    <option value="name">🔤 按名称</option>
-                    <option value="count">📊 按句子数</option>
+                    <option value="name">🔤 名称</option>
+                    <option value="count">📊 数量</option>
                   </select>
                 </div>
               </motion.div>
 
               {/* 小场景网格 - 更精致 */}
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid grid-cols-2 gap-3 md:gap-4">
                 {filteredScenes.map((scene, index) => (
                   <motion.button
                     key={scene.id}
@@ -541,32 +543,32 @@ export function ParentingModule() {
                     initial="hidden"
                     animate="visible"
                     onClick={() => setActiveSceneId(scene.id)}
-                    className="group text-left rounded-2xl bg-white p-5 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-pink-200 relative overflow-hidden"
+                    className="group text-left rounded-2xl bg-white p-3 md:p-5 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-pink-200 relative overflow-hidden"
                   >
                     {/* 悬停背景 */}
                     <div className="absolute inset-0 bg-gradient-to-r from-pink-50/0 via-pink-50/50 to-pink-50/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
+
                     <div className="relative flex items-start gap-4">
                       {/* Emoji图标 - 更立体 */}
-                      <motion.div 
-                        className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center text-3xl shadow-inner group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
+                      <motion.div
+                        className="w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center text-xl md:text-3xl shadow-inner group-hover:shadow-lg group-hover:scale-110 transition-all duration-300"
                         whileHover={{ rotate: [0, -5, 5, 0] }}
                         transition={{ duration: 0.5 }}
                       >
                         {getSceneEmoji(scene.id)}
                       </motion.div>
-                      
+
                       <div className="flex-1 min-w-0">
                         <h3 className="text-lg font-bold text-gray-800 group-hover:text-pink-600 transition-colors mb-2">
                           {scene.title}
                         </h3>
-                        <div className="flex items-center gap-3">
-                          <span className="inline-flex items-center gap-1.5 text-sm text-gray-500">
-                            <MessageCircle className="w-3.5 h-3.5" />
-                            {scene.lines.length} 句表达
+                        <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3">
+                          <span className="inline-flex items-center gap-1 md:gap-1.5 text-xs md:text-sm text-gray-500">
+                            <MessageCircle className="w-3 h-3 md:w-3.5 md:h-3.5" />
+                            {scene.lines.length} 句
                           </span>
-                          <span className="text-gray-300">|</span>
-                          <span className="text-xs text-pink-400 font-medium">开始学习</span>
+                          <span className="hidden md:inline text-gray-300">|</span>
+                          <span className="text-[10px] md:text-xs text-pink-400 font-medium">开始学习</span>
                         </div>
                       </div>
 
@@ -578,7 +580,7 @@ export function ParentingModule() {
                   </motion.button>
                 ))}
                 {filteredScenes.length === 0 && (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="col-span-full rounded-3xl border-2 border-dashed border-pink-200 p-12 text-center bg-white/50"
@@ -603,26 +605,30 @@ export function ParentingModule() {
               className="space-y-6"
             >
               {/* 导航栏 - 更精致 */}
-              <motion.div 
+              {/* 导航栏 - 更精致 (吸顶) */}
+              <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex flex-wrap items-center gap-3 bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-sm border border-gray-100"
+                className="sticky top-16 md:top-20 z-40 flex items-center gap-2 md:gap-3 bg-white/90 backdrop-blur-md rounded-2xl p-3 md:p-4 shadow-sm border border-gray-100 mb-6"
               >
                 <button
                   onClick={resetToScenes}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 hover:bg-pink-50 text-sm font-semibold text-gray-600 hover:text-pink-600 transition-all"
+                  className="flex-shrink-0 inline-flex items-center gap-1 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-gray-50 hover:bg-pink-50 text-xs md:text-sm font-semibold text-gray-600 hover:text-pink-600 transition-all"
                 >
-                  <ArrowLeft className="w-4 h-4" />
-                  返回小场景
+                  <ArrowLeft className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                  <span className="hidden md:inline">返回小场景</span>
+                  <span className="md:hidden">返回</span>
                 </button>
-                <span className="text-gray-300">/</span>
-                <span className="text-sm text-gray-500">{activeGroup.title}</span>
-                <ChevronRight className="w-4 h-4 text-gray-300" />
-                <span className="text-sm font-semibold text-pink-600 bg-pink-50 px-3 py-1 rounded-full">{activeScene.title}</span>
+                <div className="flex items-center gap-1 md:gap-2 overflow-hidden text-xs md:text-sm">
+                  <span className="text-gray-300">/</span>
+                  <span className="text-gray-500 truncate">{activeGroup.title}</span>
+                  <ChevronRight className="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-300 flex-shrink-0" />
+                  <span className="font-semibold text-pink-600 bg-pink-50 px-2 py-0.5 md:px-3 md:py-1 rounded-full truncate">{activeScene.title}</span>
+                </div>
               </motion.div>
 
               {/* 场景标题卡片 - 更高级 */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
@@ -631,9 +637,9 @@ export function ParentingModule() {
                 {/* 背景装饰 */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-pink-100 to-rose-100 rounded-full blur-3xl opacity-50" />
                 <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-amber-100 to-yellow-100 rounded-full blur-2xl opacity-50" />
-                
+
                 <div className="relative flex items-center gap-5">
-                  <motion.div 
+                  <motion.div
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
@@ -657,7 +663,7 @@ export function ParentingModule() {
                   const isEven = index % 2 === 0;
                   const lineId = `${activeScene.id}-${index}`;
                   const isFavorite = favorites.has(lineId);
-                  
+
                   return (
                     <motion.div
                       key={lineId}
@@ -668,12 +674,11 @@ export function ParentingModule() {
                       className={`flex gap-4 ${isEven ? '' : 'flex-row-reverse'}`}
                     >
                       {/* 头像 - 更可爱 */}
-                      <motion.div 
-                        className={`flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-lg shadow-lg ${
-                          isEven 
-                            ? 'bg-gradient-to-br from-pink-400 to-rose-400 text-white' 
-                            : 'bg-gradient-to-br from-amber-400 to-orange-400 text-white'
-                        }`}
+                      <motion.div
+                        className={`flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-lg shadow-lg ${isEven
+                          ? 'bg-gradient-to-br from-pink-400 to-rose-400 text-white'
+                          : 'bg-gradient-to-br from-amber-400 to-orange-400 text-white'
+                          }`}
                         whileHover={{ scale: 1.1, rotate: isEven ? -5 : 5 }}
                       >
                         {isEven ? '👩' : '👶'}
@@ -682,28 +687,26 @@ export function ParentingModule() {
                       {/* 气泡内容 */}
                       <div className={`flex-1 max-w-[85%] ${isEven ? '' : 'text-right'}`}>
                         {/* 英文气泡 - 更立体 */}
-                        <motion.div 
-                          className={`relative inline-block rounded-2xl px-6 py-4 shadow-lg mb-2 ${
-                            isEven
-                              ? 'bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white rounded-tl-none'
-                              : 'bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 text-white rounded-tr-none'
-                          }`}
+                        <motion.div
+                          className={`relative inline-block rounded-2xl px-6 py-4 shadow-lg mb-2 ${isEven
+                            ? 'bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white rounded-tl-none'
+                            : 'bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 text-white rounded-tr-none'
+                            }`}
                           whileHover={{ scale: 1.02 }}
                           transition={{ type: "spring", stiffness: 400 }}
                         >
                           {/* 小尾巴 */}
-                          <div className={`absolute top-0 w-4 h-4 ${
-                            isEven 
-                              ? '-left-2 bg-pink-500' 
-                              : '-right-2 bg-amber-400'
-                          }`} style={{
-                            clipPath: isEven ? 'polygon(100% 0, 0 0, 100% 100%)' : 'polygon(0 0, 100% 0, 0 100%)'
-                          }} />
-                          
+                          <div className={`absolute top-0 w-4 h-4 ${isEven
+                            ? '-left-2 bg-pink-500'
+                            : '-right-2 bg-amber-400'
+                            }`} style={{
+                              clipPath: isEven ? 'polygon(100% 0, 0 0, 100% 100%)' : 'polygon(0 0, 100% 0, 0 100%)'
+                            }} />
+
                           <p className="text-base md:text-lg font-medium leading-relaxed relative z-10">
                             {line.en}
                           </p>
-                          
+
                           {/* 收藏按钮 */}
                           <button
                             onClick={() => toggleFavorite(lineId)}
@@ -712,7 +715,7 @@ export function ParentingModule() {
                             <Heart className={`w-3.5 h-3.5 ${isFavorite ? 'fill-white text-white' : 'text-white/70'}`} />
                           </button>
                         </motion.div>
-                        
+
                         {/* 中文翻译 - 更精致 */}
                         <div className={`flex items-center gap-2 ${isEven ? '' : 'justify-end'}`}>
                           <span className="text-sm text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full">
@@ -729,7 +732,7 @@ export function ParentingModule() {
               </div>
 
               {/* 底部提示 - 更可爱 */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
@@ -750,22 +753,22 @@ export function ParentingModule() {
                     <Sparkles className="w-5 h-5" />
                   </motion.div>
                 </div>
-                
+
                 {/* 装饰 */}
                 <div className="flex justify-center gap-4 mt-6 text-3xl opacity-30">
-                  <motion.span 
+                  <motion.span
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
                     🎉
                   </motion.span>
-                  <motion.span 
+                  <motion.span
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
                   >
                     ⭐
                   </motion.span>
-                  <motion.span 
+                  <motion.span
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 2, repeat: Infinity, delay: 0.6 }}
                   >

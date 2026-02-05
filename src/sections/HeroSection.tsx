@@ -8,7 +8,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ onNavigate: _onNavigate }: HeroSectionProps) {
   return (
-    <section className="relative min-h-[52vh] md:min-h-[58vh] flex items-center justify-center overflow-hidden pt-16 md:pt-18">
+    <section className="relative min-h-[52vh] md:min-h-[58vh] flex items-center justify-center overflow-hidden pt-20 md:pt-18">
       {/* Background Gradient */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_#FFE7F1_0%,_#FFF6F9_42%,_#FFFFFF_100%)]" />
@@ -49,13 +49,13 @@ export function HeroSection({ onNavigate: _onNavigate }: HeroSectionProps) {
 
       {/* Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="max-w-2xl py-4 md:py-6">
+        <div className="max-w-2xl py-2 md:py-6">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-pink-100 rounded-full mb-6"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-pink-100 rounded-full mb-4"
           >
             <Sparkles className="w-4 h-4 text-pink-500" />
             <span className="text-sm font-semibold text-pink-600">
@@ -68,7 +68,7 @@ export function HeroSection({ onNavigate: _onNavigate }: HeroSectionProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-800 leading-tight mb-4"
+            className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-gray-800 leading-tight mb-4"
           >
             苒妈英语
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-pink-600">
@@ -81,7 +81,7 @@ export function HeroSection({ onNavigate: _onNavigate }: HeroSectionProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
-            className="text-xl md:text-2xl text-gray-600 font-medium mb-4"
+            className="text-lg md:text-2xl text-gray-600 font-medium mb-4"
           >
             亲子陪伴式英语启蒙，从兴趣到能力稳步提升
           </motion.p>
