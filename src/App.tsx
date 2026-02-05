@@ -9,11 +9,41 @@ import { EpisodeList } from '@/sections/EpisodeList';
 import { FeaturesSection } from '@/sections/FeaturesSection';
 import { ModuleDetail } from '@/sections/ModuleDetail';
 import { NoteDetail } from '@/components/NoteDetail';
-import type { ViewState } from '@/types';
+import type { ModuleId, ViewState } from '@/types';
 
 function App() {
   const [currentView, setCurrentView] = useState<ViewState>({ type: 'home' });
   const [isLoading, setIsLoading] = useState(true);
+
+  const parseHashView = (): ViewState => {
+    const raw = window.location.hash.replace(/^#\/?/, '');
+    if (!raw) return { type: 'home' };
+    const parts = raw.split('/').filter(Boolean);
+    const [root, value] = parts;
+    if (root === 'module' && value) return { type: 'module', moduleId: value as ModuleId };
+    if (root === 'season' && value) {
+      const seasonId = Number(value);
+      return Number.isNaN(seasonId) ? { type: 'home' } : { type: 'season', seasonId };
+    }
+    if (root === 'note' && value) return { type: 'note', episodeId: value };
+    if (root === 'home') return { type: 'home' };
+    return { type: 'home' };
+  };
+
+  const buildHash = (view: ViewState) => {
+    switch (view.type) {
+      case 'home':
+        return '#/';
+      case 'module':
+        return `#/module/${view.moduleId}`;
+      case 'season':
+        return `#/season/${view.seasonId}`;
+      case 'note':
+        return `#/note/${view.episodeId}`;
+      default:
+        return '#/';
+    }
+  };
 
   // Simulate initial loading
   useEffect(() => {
@@ -23,9 +53,18 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Sync view from hash
+  useEffect(() => {
+    setCurrentView(parseHashView());
+    const onHashChange = () => setCurrentView(parseHashView());
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
   // Handle navigation
   const handleNavigate = (view: ViewState) => {
     setCurrentView(view);
+    window.location.hash = buildHash(view);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
