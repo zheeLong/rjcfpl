@@ -40,9 +40,9 @@ export function HeroSection({ onNavigate: _onNavigate }: HeroSectionProps) {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-gray-800 leading-[1.15] mb-4 tracking-tight"
             >
-              妈妈和孩子
+              苒妈英语
               <span className="block mt-1 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500">
-                一起学英语
+                启蒙成长计划
               </span>
             </motion.h1>
 

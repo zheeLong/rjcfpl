@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, ChevronRight, Search, Clock, ArrowLeft, Sparkles } from 'lucide-react';
 import { oxfordTreeLevels, getOxfordBooksByLevel, type OxfordBook } from '@/data/oxfordTree';
+import { BookCardSkeleton } from '@/components/CardSkeleton';
 
 // 级别颜色配置
 const levelColors: Record<string, { bg: string; text: string; gradient: string; light: string }> = {
@@ -235,6 +236,7 @@ function BookList({
   onSelectBook: (book: OxfordBook) => void;
   onBack: () => void;
 }) {
+  const [isLoading] = useState(false); // 骨架屏状态（暂时设为 false，后续可接入真实加载逻辑）
   if (!level) return null;
   const style = getLevelStyle(level.id);
 
@@ -301,51 +303,59 @@ function BookList({
 
       {/* 绘本网格 */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-        {books.map((book, index) => (
-          <motion.button
-            key={book.id}
-            custom={index}
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            onClick={() => onSelectBook(book)}
-            className="group text-left rounded-2xl bg-white p-3 md:p-5 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-emerald-200"
-          >
-            <div className="flex items-start gap-2 md:gap-4">
-              {/* 序号 */}
-              <div className={`w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl ${style.light} flex items-center justify-center text-sm md:text-xl font-bold ${style.text} shadow-inner group-hover:scale-110 transition-transform`}>
-                {book.episode}
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <h3 className="text-sm md:text-lg font-bold text-gray-800 group-hover:text-emerald-600 transition-colors mb-0.5 md:mb-1 line-clamp-1">
-                  {book.title}
-                </h3>
-
-                <div className="flex items-center gap-2 text-sm text-gray-500">
-                  <Clock className="w-3.5 h-3.5" />
-                  <span>精读拓展</span>
+        {isLoading ? (
+          // 显示骨架屏
+          Array.from({ length: 6 }).map((_, index) => (
+            <BookCardSkeleton key={index} />
+          ))
+        ) : (
+          // 显示实际内容
+          books.map((book, index) => (
+            <motion.button
+              key={book.id}
+              custom={index}
+              variants={cardVariants}
+              initial="hidden"
+              animate="visible"
+              onClick={() => onSelectBook(book)}
+              className="group text-left rounded-2xl bg-white p-3 md:p-5 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 hover:border-emerald-200"
+            >
+              <div className="flex items-start gap-2 md:gap-4">
+                {/* 序号 */}
+                <div className={`w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl ${style.light} flex items-center justify-center text-sm md:text-xl font-bold ${style.text} shadow-inner group-hover:scale-110 transition-transform`}>
+                  {book.episode}
                 </div>
 
-                {/* 词汇数量预览 */}
-                {book.vocabulary && book.vocabulary.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 mt-3">
-                    <span className={`px-2 py-0.5 rounded-full text-xs ${style.light} ${style.text}`}>
-                      📖 {book.vocabulary.length}个词汇
-                    </span>
-                    {book.qa && book.qa.length > 0 && (
-                      <span className={`px-2 py-0.5 rounded-full text-xs ${style.light} ${style.text}`}>
-                        💬 {book.qa.length}组问答
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm md:text-lg font-bold text-gray-800 group-hover:text-emerald-600 transition-colors mb-0.5 md:mb-1 line-clamp-1">
+                    {book.title}
+                  </h3>
 
-              <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
-            </div>
-          </motion.button>
-        ))}
+                  <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>精读拓展</span>
+                  </div>
+
+                  {/* 词汇数量预览 */}
+                  {book.vocabulary && book.vocabulary.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mt-3">
+                      <span className={`px-2 py-0.5 rounded-full text-xs ${style.light} ${style.text}`}>
+                        📖 {book.vocabulary.length}个词汇
+                      </span>
+                      {book.qa && book.qa.length > 0 && (
+                        <span className={`px-2 py-0.5 rounded-full text-xs ${style.light} ${style.text}`}>
+                          💬 {book.qa.length}组问答
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
+              </div>
+            </motion.button>
+          ))
+        )}
       </div>
 
       {books.length === 0 && (
